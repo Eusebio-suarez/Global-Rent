@@ -4,10 +4,11 @@ import { AboutComponent } from "../../components/about/about.component";
 import { ReviewCardComponent } from "../../components/review-card/review-card.component";
 import { Review } from '../../../../core/models/review';
 import { BrandsSectionComponent } from "../../components/brands-section/brands-section.component";
+import { FooterComponent } from "../../../../shared/components/footer/footer.component";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NavBarDashboardComponent, AboutComponent, ReviewCardComponent, BrandsSectionComponent],
+  imports: [NavBarDashboardComponent, AboutComponent, ReviewCardComponent, BrandsSectionComponent, FooterComponent],
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent {
