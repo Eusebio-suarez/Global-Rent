@@ -1,0 +1,13 @@
+<app-nav-bar-dashboard></app-nav-bar-dashboard>
+<main class="flex flex-col gap-24 max-md:gap-14">
+    <app-about></app-about>
+    <app-brands-section></app-brands-section>
+    <section class="flex flex-col px-20 max-md:px-10">
+        <h2 class="text-3xl font-semibold text-[#2D9C68]/80 max-[815px]:text-2xl">Reseñas</h2>
+        <div class="flex justify-between py-8 flex-wrap max-[1200px]:gap-10 max-[1200px]:justify-center">
+            @for (item of reviews; track $index) {
+                <app-review-card  [review]="item"></app-review-card>
+            }
+        </div>
+    </section>
+</main>
