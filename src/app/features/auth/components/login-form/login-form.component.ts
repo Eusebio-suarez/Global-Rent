@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-login-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink, NgClass],
   templateUrl: './login-form.component.html'
 })
 export class LoginFormComponent {
@@ -11,7 +13,7 @@ export class LoginFormComponent {
 
   constructor(private fb:FormBuilder){
 
-    this.loginForm = fb.group({
+    this.loginForm = this.fb.group({
       email: ["",[Validators.required,Validators.email]],
       password: ["",[Validators.required,Validators.minLength(8)]]
     })

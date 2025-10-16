@@ -1,1 +1,48 @@
-<p>register-form works!</p>
+<form [formGroup]="registerForm" (submit)="registerForm" class="flex flex-col p-10 py-9 gap-6 bg-[#C3D2FF]/70 border border-[#788CFF] rounded-xl shadow-xl">
+    <div class="flex justify-center">
+        <h2 class="text-xl text-gray-600 font-semibold">Registro</h2>
+    </div>
+    <div class="flex flex-col gap-2">
+        <label class="text-[#425df6] font-semibold" for="email">nombre</label>
+        <input
+            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':registerForm.controls['name'].invalid && registerForm.controls['name'].touched}"
+            type="name" name="name" id="name"
+            formControlName="name"
+            class="w-[260px] px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800"
+            placeholder="nombre"
+        >
+    </div>
+    <div class="flex flex-col gap-2">
+        <label class="text-[#425df6] font-semibold" for="email">correo</label>
+        <input
+            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':registerForm.controls['email'].invalid && registerForm.controls['email'].touched}"
+            type="email" name="email" id="email"
+            formControlName="email"
+            class="w-[260px] px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800"
+            placeholder="ejemplocorreo@gmail.com"
+        >
+    </div>
+    <div class="flex flex-col gap-2">
+        <label class="text-[#425df6] font-semibold" for="password">contraseña</label>
+        <input
+            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':registerForm.controls['password'].invalid && registerForm.controls['password'].touched}"
+            type="password" name="name" id="password"
+            formControlName="password"
+            required
+            class="w-[260px] px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800"
+            placeholder="••••••••"
+        >
+    </div>
+    <button
+        type="submit"
+        class="bg-[#4fb884]/90 hover:bg-[#2d9c68]/80 px-3 py-1.5 transition-colors font-semibold text-white shadow-lg rounded-sm focus:outline-0 cursor-pointer" 
+        (click)="tryRegister()" [disabled]="registerForm.invalid">
+            Registrarse
+    </button>
+    <div class="text-sm text-center text-gray-600 mt-2">
+        ¿Ya tienes cuenta?
+        <a routerLink="/auth/login" class="text-[#425df6] hover:underline cursor-pointer">
+        Inicia sesión aquí
+        </a>
+    </div>
+</form>

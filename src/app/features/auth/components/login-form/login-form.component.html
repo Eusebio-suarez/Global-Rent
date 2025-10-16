@@ -1,21 +1,34 @@
-<form [formGroup]="loginForm" class="flex flex-col p-10 py-9 gap-6 bg-[#C3D2FF]/70 border border-[#788CFF] rounded-xl shadow-xl">
+<form [formGroup]="loginForm" (submit)="tryLogin()" class="flex flex-col p-10 py-9 gap-6 bg-[#C3D2FF]/70 border border-[#788CFF] rounded-xl shadow-xl">
     <div class="flex justify-center">
         <h2 class="text-xl text-gray-600 font-semibold">Inicio de Sesión</h2>
         </div>
     <div class="flex flex-col gap-2">
         <label class="text-[#425df6] font-semibold" for="email">correo</label>
-        <input type="email" name="email" id="email" formControlName="email" class="w-[260px] px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800" placeholder="ejemplocorreo@gmail.com">
+        <input
+            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':loginForm.controls['email'].invalid && loginForm.controls['email'].touched}"
+            type="email" name="email" id="email"
+            formControlName="email"
+            class="w-[260px] px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800"
+            placeholder="ejemplocorreo@gmail.com"
+        >
     </div>
     <div class="flex flex-col gap-2">
         <label class="text-[#425df6] font-semibold" for="password">contraseña</label>
-        <input type="password" name="name" id="password" formControlName="password" class="w-[260px] px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800" placeholder="••••••••">
+        <input
+            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':loginForm.controls['password'].invalid && loginForm.controls['password'].touched}"
+            type="password" name="name" id="password"
+            formControlName="password"
+            required
+            class="w-[260px] px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800"
+            placeholder="••••••••"
+        >
     </div>
-    <button class="bg-[#4fb884]/70 hover:bg-[#2d9c68]/70 px-3 py-1.5 transition-colors font-semibold text-white shadow-lg rounded-sm focus:outline-0 cursor-pointer" type="button" (click)="tryLogin()" [disabled]="loginForm.invalid">
+    <button type="submit" class="bg-[#4fb884]/90 hover:bg-[#2d9c68]/80 px-3 py-1.5 transition-colors font-semibold text-white shadow-lg rounded-sm focus:outline-0 cursor-pointer" type="button" (click)="tryLogin()" [disabled]="loginForm.invalid">
         Iniciar Sesión
     </button>
     <div class="text-sm text-center text-gray-600 mt-2">
         ¿No tienes cuenta?
-        <a routerLink="/register" class="text-[#425df6] hover:underline cursor-pointer">
+        <a routerLink="/auth/register" class="text-[#425df6] hover:underline cursor-pointer">
         Regístrate aquí
         </a>
     </div>
