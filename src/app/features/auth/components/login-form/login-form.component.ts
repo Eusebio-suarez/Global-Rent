@@ -4,6 +4,7 @@ import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular
 import { NgClass } from '@angular/common';
 import { AuthService } from '../../../../core/services/auth.service';
 import { ApiResponse } from '../../../../core/models/response/apiResponse';
+import { Toast, ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login-form',
   imports: [ReactiveFormsModule, RouterLink, NgClass],
@@ -15,6 +16,7 @@ export class LoginFormComponent implements OnInit {
 
   private fb:FormBuilder = inject(FormBuilder)
   private authservice:AuthService = inject(AuthService)
+  private toastr:ToastrService = inject(ToastrService)
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -27,9 +29,11 @@ export class LoginFormComponent implements OnInit {
     this.authservice.login(this.loginForm.value).subscribe({
       next:(response)=>{
         console.log("exito")
+        this.toastr.success(response.message,"Exito")
       },
       error:(e:Error)=>{
         console.log(e)
+        this.toastr.error(e.message)
       }
     })
   }
