@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { RegisterService } from '../../../../core/services/register.service';
 @Component({
   selector: 'app-register-form',
   imports: [ReactiveFormsModule,NgClass,RouterLink],
@@ -10,6 +12,12 @@ import { RouterLink } from '@angular/router';
 export class RegisterFormComponent {
 
   registerForm:FormGroup
+
+  toastr:ToastrService = inject(ToastrService)
+
+  registerService:RegisterService = inject(RegisterService)
+
+  router:Router = inject(Router)
 
   constructor(private fb:FormBuilder){
     this.registerForm = this.fb.group({
@@ -20,6 +28,16 @@ export class RegisterFormComponent {
   }
 
   tryRegister(){
-    console.log(this.registerForm.value)
+    
+    this.registerService.tryRegister(this.registerForm.value).subscribe({
+      next:(response) =>{
+        this.toastr.success(response.message,"Exito")
+
+        this.router.navigate(["/auth"])
+      },
+      error:(e:Error) =>{
+        this.toastr.error(e.message)
+      }
+    })
   }
 }

@@ -1,0 +1,7 @@
+<main class="flex flex-wrap gap-14 px-20 justify-center max-[700px]:flex-nowrap max-[700px]:flex-col max-[700px]:items-center max-[800px]:gap-10 max-[800px]:px-10 ">
+    @for (car of cars; track $index) {
+
+        <app-car-card [car] = car ></app-car-card>
+    }
+    
+</main>
