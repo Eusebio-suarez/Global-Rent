@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { NgClass } from '@angular/common';
 import { AuthService } from '../../../../core/services/auth.service';
@@ -16,6 +16,7 @@ export class LoginFormComponent implements OnInit {
   private fb:FormBuilder = inject(FormBuilder)
   private authservice:AuthService = inject(AuthService)
   private toastr:ToastrService = inject(ToastrService)
+  private router:Router = inject(Router)
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -29,6 +30,7 @@ export class LoginFormComponent implements OnInit {
       next:(response)=>{
         console.log("exito")
         this.toastr.success(response.message,"Exito")
+        this.router.navigate(["/cars"])
       },
       error:(e:Error)=>{
         console.log(e)
