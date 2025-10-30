@@ -18,5 +18,9 @@ export const routes: Routes = [
     {
         path:"cars",
         loadChildren: () => import("./features/cars/cars.routes").then(r => r.CARS_ROUTES)
+    },
+    {
+        path:"reservations",
+        loadChildren: () => import("./features/reservations/reservations.routes").then(r => r.RESERVATIONS_ROUTES)
     }
 ]
