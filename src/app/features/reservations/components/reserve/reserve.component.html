@@ -1,0 +1,18 @@
+@if (selectedCar) {
+    <main class="px-20">
+        <div class="flex">
+            <div>
+                <img [src]="selectedCar.image" [alt]="selectedCar.model" class="w-[500px] h-[400px] object-contain">
+            </div>
+        </div>
+        
+
+    </main>
+
+}
+
+@else {
+    <p>No se encontro el carro.</p>
+}
+
+
