@@ -7,10 +7,11 @@ export const RESERVATIONS_ROUTES:Routes = [
     {
         path:"",
         component:ReservationPageComponent,
-        pathMatch:"full"
-    },
-    {
-        path:"reserve/:model",
-        component:ReserveComponent
+        children:[
+            {
+                path:"reserve/:model",
+                component:ReserveComponent
+            }
+        ]
     }
 ]

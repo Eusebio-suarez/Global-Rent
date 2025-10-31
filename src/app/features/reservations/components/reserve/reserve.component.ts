@@ -27,7 +27,5 @@ export class ReserveComponent implements OnInit {
     })
 
   }
-
- 
   
 }

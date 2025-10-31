@@ -1,12 +1,13 @@
-<p>reserve works!</p>
-
 @if (selectedCar) {
+    <main class="px-20">
+        <div class="flex">
+            <div>
+                <img [src]="selectedCar.image" [alt]="selectedCar.model" class="w-[500px] h-[400px] object-contain">
+            </div>
+        </div>
+        
 
-    <p>{{selectedCar.image}}</p>
-    <p>{{selectedCar.bags}}</p>
-    <p>{{selectedCar.people}}</p>
-    <p>{{selectedCar.price}}</p>
-    <p>{{selectedCar.type}}</p>
+    </main>
 
 }
 
