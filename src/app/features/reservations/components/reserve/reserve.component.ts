@@ -1,4 +1,4 @@
-import { Component, Inject, inject, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit, viewChildren } from '@angular/core';
 import { Car } from '../../../../core/models/response/car';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarsService } from '../../../../core/services/cars.service';
@@ -22,35 +22,123 @@ export class ReserveComponent implements OnInit {
   
   selectedCar:Car | undefined
 
-  date = new Date()
+  minStartDate!:Date
 
-  today!:string
+  maxStartDate!:Date
+
+  minStartTextDate!:string
+
+  maxStartTextDate!:string
+
+  minEndDate!:Date
+
+  maxEndDate!:Date
+
+  minEndTextDate!:string
+
+  maxEndTextDate!:string
 
   ngOnInit(){
 
     this.getCar()
 
     this.reserveForm = this.fb.group({
-      licensePlate:[this.selectedCar?.licensePlate],
+      licensePlate:[""],
       startDate:["",[Validators.required]],
       endDate:["",[Validators.required]]
     })
 
-    const year = this.date.getFullYear()
-    const month = (this.date.getMonth()+1).toString().padStart(2,"0")
-    const day = this.date.getDate().toString().padStart(2,"0")
+    this.calculateMinStartTextDate()
+    this.calculateMaxStartTextDate()
 
-    this.today = `${year}-${month}-${day}`
-    
-    console.log(this.today)
+  }
+
+  showInfo(){
+    console.log(this.reserveForm.value)
   }
 
   getCar(){
     const model = this.activatedRouter.snapshot.params["model"]
 
     this.carsService.getCar(model).subscribe(car =>{
+
       this.selectedCar = car
+
+      this.reserveForm.patchValue({
+        licensePlate:car?.licensePlate
+      })
     })
   }
+
+  calculateMinStartTextDate(){
+
+    this.minStartDate = new Date()
+
+    this.minStartDate.setDate(this.minStartDate.getDate() + 1)
+
+    const year = this.minStartDate.getFullYear()
+    const month = (this.minStartDate.getMonth()+1).toString().padStart(2,"0")
+    const day = this.minStartDate.getDate().toString().padStart(2,"0")
+
+    this.minStartTextDate = `${year}-${month}-${day}`
+
+  }
   
+  calculateMaxStartTextDate(){
+
+    this.maxStartDate = new Date()
+
+    this.maxStartDate.setDate(this.maxStartDate.getDate() + 1)
+
+    this.maxStartDate.setMonth(this.maxStartDate.getMonth()+1)
+
+    const year = this.maxStartDate.getFullYear()
+
+    const month = (this.maxStartDate.getMonth()+1).toString().padStart(2,"0")
+
+    const day = this.maxStartDate.getDate().toString().padStart(2,"0")
+
+    this.maxStartTextDate = `${year}-${month}-${day}`
+  }
+
+  calculateMinEndTextDate(){
+
+    this.minEndDate = new Date(this.reserveForm.get("startDate")?.value)
+
+    /*se nesecita esta fecha exacta pero el navegador
+    resta la el desplazamiento de la hora local por lo que
+    puede modificar el dia de la fecha*/
+    
+    //Corregir el desplazamiento por zona horaria
+    this.minEndDate.setMinutes(this.minEndDate.getMinutes()+ this.minEndDate.getTimezoneOffset())
+
+    this.minEndDate.setDate(this.minEndDate.getDate() + 1)
+
+    const year = this.minEndDate.getFullYear()
+    const month = (this.minEndDate.getMonth()+1).toString().padStart(2,"0")
+    const day = this.minEndDate.getDate().toString().padStart(2,"0")
+
+    this.minEndTextDate = `${year}-${month}-${day}`
+
+    this.calculateMaxEndTextDate()
+
+  }
+
+  calculateMaxEndTextDate(){
+    
+    this.maxEndDate = this.minEndDate
+
+    this.maxEndDate.setDate(this.maxEndDate.getDate() - 1)
+
+    this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1)
+
+    const year = this.maxEndDate.getFullYear()
+
+    const month = (this.maxEndDate.getMonth()+1).toString().padStart(2,"0")
+
+    const day = this.maxEndDate.getDate().toString().padStart(2,"0")
+
+    this.maxEndTextDate = `${year}-${month}-${day}`
+
+  }
 }
