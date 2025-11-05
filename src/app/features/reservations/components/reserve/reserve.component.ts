@@ -3,11 +3,12 @@ import { Car } from '../../../../core/models/response/car';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarsService } from '../../../../core/services/cars.service';
 import { CurrencyPipe } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { FormBuilder, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-reserve',
-  imports: [CurrencyPipe, ɵInternalFormsSharedModule, ReactiveFormsModule],
+  imports: [CurrencyPipe, ɵInternalFormsSharedModule, ReactiveFormsModule,NgClass],
   templateUrl: './reserve.component.html'
 })
 export class ReserveComponent implements OnInit {
@@ -38,6 +39,8 @@ export class ReserveComponent implements OnInit {
 
   maxEndTextDate!:string
 
+  totalPrice:number = 0
+
   ngOnInit(){
 
     this.getCar()
@@ -48,9 +51,39 @@ export class ReserveComponent implements OnInit {
       endDate:["",[Validators.required]]
     })
 
+
+    //deshabilitar la fecha de fin por defecto
+    this.reserveForm.get("endDate")?.disable()
+
+    // escuchar los cambios del input de la fecha de inicio
+    this.reserveForm.get("startDate")?.valueChanges.subscribe((value)=>{
+
+      this.reserveForm.get("endDate")?.reset()
+    
+      if(value){
+        this.reserveForm.get("endDate")?.enable()
+      }
+      else{
+        this.reserveForm.get('endDate')?.disable();
+      }
+    })
+
+    //escuchar los cambios del input de la fecha de fin
+    this.reserveForm.get("endDate")?.valueChanges.subscribe((value)=>{
+
+      if(value){
+        this.calculateTotalPrice()
+      }else{
+        this.totalPrice = 0
+      }
+
+    })
+  
+    
+
     this.calculateMinStartTextDate()
     this.calculateMaxStartTextDate()
-
+    
   }
 
   showInfo(){
@@ -101,6 +134,13 @@ export class ReserveComponent implements OnInit {
     this.maxStartTextDate = `${year}-${month}-${day}`
   }
 
+  calculateEndDate(){
+
+    this.calculateMinEndTextDate()
+
+    this.calculateMaxEndTextDate()
+  }
+
   calculateMinEndTextDate(){
 
     this.minEndDate = new Date(this.reserveForm.get("startDate")?.value)
@@ -120,8 +160,6 @@ export class ReserveComponent implements OnInit {
 
     this.minEndTextDate = `${year}-${month}-${day}`
 
-    this.calculateMaxEndTextDate()
-
   }
 
   calculateMaxEndTextDate(){
@@ -140,5 +178,22 @@ export class ReserveComponent implements OnInit {
 
     this.maxEndTextDate = `${year}-${month}-${day}`
 
+  }
+
+  calculateTotalPrice(){
+
+    const startDate = new Date(this.reserveForm.get("startDate")?.value)
+
+    const endDate = new Date(this.reserveForm.get("endDate")?.value)
+
+    //Corregir el desplazamiento por zona horaria
+    startDate.setMinutes(startDate.getMinutes() + startDate.getTimezoneOffset())
+    endDate.setMinutes(endDate.getMinutes() + endDate.getTimezoneOffset())
+
+
+    //get time devulve el tiempo en milisegundos
+    const days = (endDate.getTime() - startDate.getTime())/86400000 //un dia en milisegundos
+
+    this.totalPrice = days * (this.selectedCar?.price? this.selectedCar.price : 0)
   }
 }
