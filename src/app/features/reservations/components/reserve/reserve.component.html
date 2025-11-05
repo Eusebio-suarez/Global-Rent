@@ -25,6 +25,7 @@
                         <p class="text-[#5069f8]">
                             {{ selectedCar.price| currency : 'COP ' : 'symbol' : '1.0-0' }}
                             / Dia
+                        </p>
                     </div>
                 </div>
             </div>
@@ -45,16 +46,17 @@
                     </label>
                     <input type="date"
                         formControlName="startDate"
-                        (change)="calculateMinEndTextDate()"
+                        (change)="calculateEndDate()"
                         name="startDate"
-                        id="StartDate"
+                        id="startDate"
                         [min]="minStartTextDate"
                         [max]="maxStartTextDate"
+                        [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60': reserveForm.controls['startDate'].invalid && reserveForm.controls['startDate'].touched}"
                         class="px-3 py-1.5 focus:outline-0 ring-1 bg-[#C3D2FF]/80 ring-gray-400 rounded-md shadow-md focus:ring-2 focus:ring-[#8091f2] text-gray-700"
                     >
                 </div>
                 <div class="flex flex-col gap-2">
-                    <label for="endtDate"
+                    <label for="endDate"
                         class="text-[#425df6] font-semibold">
                         Fecha de fin
                     </label>
@@ -64,21 +66,29 @@
                         id="endDate"
                         [min]="minEndTextDate"
                         [max]="maxEndTextDate"
+                        [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60': reserveForm.controls['endDate'].invalid && reserveForm.controls['endDate'].touched}"
                         class=" px-3 py-1.5 focus:outline-0 ring-1 bg-[#C3D2FF]/80 ring-gray-400 rounded-md shadow-md focus:ring-2 focus:ring-[#8091f2] text-gray-700"
                     >
                 </div>
             </form>
             <div class="flex flex-col">
                 <div>
-                    <h3 class="text-xl font-semibold text-[#4fb884]">Detalles de la Reserva</h3>
+                    <h3 class="text-xl font-semibold text-[#425df6]">Detalles de la Reserva</h3>
                     <h3 class="text-md font-semibold text-gray-700">{{ selectedCar.model }}</h3>
+                </div>
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#4fb884" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-white lucide lucide-circle-dollar-sign-icon lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+                    <p class="text-[#5069f8]">
+                            {{ totalPrice | currency : 'COP ' : 'symbol' : '1.0-0' }}
+                    </p>
                 </div>
                 <div class="flex">
                     <button
+                    [disabled]="reserveForm.invalid"
                     (click)="showInfo()"
                     class="bg-[#4fb884]/90 hover:bg-[#2d9c68]/80 px-3 py-1.5 transition-colors font-semibold text-white shadow-lg rounded-sm focus:outline-0 cursor-pointer"
                     >
-                        Confirmar
+                        Confirmar Reserva
                     </button>
                 </div>
             </div>
