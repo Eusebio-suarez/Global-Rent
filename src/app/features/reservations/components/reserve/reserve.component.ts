@@ -1,10 +1,12 @@
-import { Component, Inject, inject, OnInit, viewChildren } from '@angular/core';
+import { Component, inject, OnInit} from '@angular/core';
 import { Car } from '../../../../core/models/response/car';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarsService } from '../../../../core/services/cars.service';
 import { CurrencyPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
 import { FormBuilder, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { ReservationsService } from '../../../../core/services/reservations.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-reserve',
@@ -14,6 +16,10 @@ import { FormBuilder, Validators, ɵInternalFormsSharedModule, ReactiveFormsModu
 export class ReserveComponent implements OnInit {
   
   carsService:CarsService = inject(CarsService)
+
+  reservationsService:ReservationsService = inject(ReservationsService)
+
+  toastr:ToastrService = inject(ToastrService)
 
   activatedRouter:ActivatedRoute = inject(ActivatedRoute)
 
@@ -41,6 +47,8 @@ export class ReserveComponent implements OnInit {
 
   totalPrice:number = 0
 
+  totalDays:number = 0
+
   ngOnInit(){
 
     this.getCar()
@@ -48,9 +56,8 @@ export class ReserveComponent implements OnInit {
     this.reserveForm = this.fb.group({
       licensePlate:[""],
       startDate:["",[Validators.required]],
-      endDate:["",[Validators.required]]
+      endDate:["",[Validators.required]],
     })
-
 
     //deshabilitar la fecha de fin por defecto
     this.reserveForm.get("endDate")?.disable()
@@ -74,20 +81,29 @@ export class ReserveComponent implements OnInit {
       if(value){
         this.calculateTotalPrice()
       }else{
+        this.totalDays = 0
         this.totalPrice = 0
       }
 
     })
-  
-    
 
     this.calculateMinStartTextDate()
     this.calculateMaxStartTextDate()
     
   }
 
-  showInfo(){
-    console.log(this.reserveForm.value)
+  tryReserve(){
+
+    this.reservationsService.reserve(this.reserveForm.value).subscribe({
+      next:(response)=>{
+        this.toastr.success(response.message,"Exito")
+        console.log(response)
+      },
+      error:(e:Error)=>{
+        this.toastr.error(e.message,"Error")
+      }
+    })
+
   }
 
   getCar(){
@@ -192,8 +208,8 @@ export class ReserveComponent implements OnInit {
 
 
     //get time devulve el tiempo en milisegundos
-    const days = (endDate.getTime() - startDate.getTime())/86400000 //un dia en milisegundos
+    this.totalDays = (endDate.getTime() - startDate.getTime())/86400000 //un dia en milisegundos
 
-    this.totalPrice = days * (this.selectedCar?.price? this.selectedCar.price : 0)
+    this.totalPrice = this.totalDays * (this.selectedCar?.price? this.selectedCar.price : 0)
   }
 }
