@@ -70,26 +70,56 @@
                         class=" px-3 py-1.5 focus:outline-0 ring-1 bg-[#C3D2FF]/80 ring-gray-400 rounded-md shadow-md focus:ring-2 focus:ring-[#8091f2] text-gray-700"
                     >
                 </div>
+                <div class="w-full flex flex-col gap-2">
+                    <div class="flex items-center gap-2 p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-orange-500/80 lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        <p class="text-gray-600 text-sm max-w-[90%]">Por ahora, solo puedes entregar y recoger el vehículo en la misma sede.</p>
+                    </div>
+                    <div class="flex items-center gap-2 p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-orange-500/80 lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        <p class="text-gray-600 text-sm max-w-[90%]">Único método de pago Tarjeta de crédito en la misma sede.</p>
+                    </div>
+                </div>
             </form>
-            <div class="flex flex-col">
+            <div class="flex flex-col gap-6">
                 <div>
-                    <h3 class="text-xl font-semibold text-[#425df6]">Detalles de la Reserva</h3>
+                    <h3 class="text-xl font-semibold text-[#4f67f2]">Detalles de la Reserva</h3>
                     <h3 class="text-md font-semibold text-gray-700">{{ selectedCar.model }}</h3>
                 </div>
-                <div class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#4fb884" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-white lucide lucide-circle-dollar-sign-icon lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
-                    <p class="text-[#5069f8]">
-                            {{ totalPrice | currency : 'COP ' : 'symbol' : '1.0-0' }}
-                    </p>
+                <div class="flex flex-col">
+                    <div class="flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" stroke-[#2f9a64] lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
+                        <p class="text-gray-600">Seguro básico contra daños y accidentes.</p>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" stroke-[#2f9a64] lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
+                        <p class="text-gray-600">IVA incluido.</p>
+                    </div>
                 </div>
-                <div class="flex">
-                    <button
-                    [disabled]="reserveForm.invalid"
-                    (click)="showInfo()"
-                    class="bg-[#4fb884]/90 hover:bg-[#2d9c68]/80 px-3 py-1.5 transition-colors font-semibold text-white shadow-lg rounded-sm focus:outline-0 cursor-pointer"
-                    >
-                        Confirmar Reserva
-                    </button>
+                <div class="flex flex-col gap-3">
+                    <div class="flex flex-col">
+                        <div class="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" stroke-gray-800 lucide lucide-calendar-days-icon lucide-calendar-days"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
+                            <p class="text-gray-800">
+                                {{totalDays}} Dias
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#4fb884" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-white lucide lucide-circle-dollar-sign-icon lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+                            <p class="text-[#5069f8]">
+                                {{ totalPrice | currency : 'COP ' : 'symbol' : '1.0-0' }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <button
+                        [disabled]="reserveForm.invalid"
+                        (click)="tryReserve()"
+                        class="bg-[#4fb884]/90 hover:bg-[#2d9c68]/80 px-3 py-2 transition-colors font-semibold text-white text-sm shadow-lg rounded-sm focus:outline-0 cursor-pointer"
+                        >
+                            Confirmar Reservar
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
