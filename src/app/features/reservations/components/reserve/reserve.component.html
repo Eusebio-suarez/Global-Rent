@@ -1,11 +1,11 @@
 @if (selectedCar) {
-    <main class="flex flex-col px-20 gap-14">
-        <div class="flex items-center justify-between">
-            <div class="flex flex-col gap-5 p-10">
+    <main class="flex flex-col px-20 gap-14 max-md:px-10 max-md:gap-5">
+        <div class="flex items-center justify-between max-[1000px]:flex-col ">
+            <div class="flex flex-col max-[1000px]:text-center gap-5 p-10">
                 <div class="flex flex-col">
-                    <h2 class="text-3xl font-semibold text-gray-800">{{ selectedCar.model }}</h2>
+                    <h2 class="text-3xl font-semibold text-gray-800 max-[1000px]:text-xl">{{ selectedCar.model }}</h2>
                 </div>
-                <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-4 max-[1000px]:items-center">
                     <div class="flex items-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-car-front-icon lucide-car-front"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8"/><path d="M7 14h.01"/><path d="M17 14h.01"/><rect width="18" height="8" x="3" y="10" rx="2"/><path d="M5 18v2"/><path d="M19 18v2"/></svg>                        
                         <span class="bg-[#788CFF] text-white text-xs font-semibold py-1 px-3 rounded-full shadow-sm">
@@ -33,10 +33,10 @@
                 <img [src]="selectedCar.image" [alt]="selectedCar.model" class="w-[500px] h-[400px] object-contain">
             </div>
         </div>
-        <div class="p-10 py-9 flex justify-between bg-[#C3D2FF]/50 border-2 border-[#788CFF]/40 rounded-xl shadow-md ">
+        <div class=" p-10 py-9 flex justify-between bg-[#C3D2FF]/50 border-2 border-[#788CFF]/40 rounded-xl shadow-md max-[1000px]:flex-col max-[1000px]:items-center max-[1000px]:gap-9">
             <form
                 [formGroup]="reserveForm"
-                class="w-80 flex flex-col gap-6 "
+                class="max-w-[90%] flex flex-col gap-6 "
                 >
                 
                 <div class="flex flex-col gap-2">
@@ -71,12 +71,12 @@
                     >
                 </div>
                 <div class="w-full flex flex-col gap-2">
-                    <div class="flex items-center gap-2 p-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-orange-500/80 lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                        <p class="text-gray-600 text-sm max-w-[90%]">Por ahora, solo puedes entregar y recoger el vehículo en la misma sede.</p>
+                    <div class="flex items-center gap-2 p-2 max-[500px]:flex-col max-[500px]:text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-orange-500/80 lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        <p class="text-gray-600 text-sm ">Por ahora, solo puedes entregar y recoger el vehículo en la misma sede.</p>
                     </div>
-                    <div class="flex items-center gap-2 p-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-orange-500/80 lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    <div class="flex items-center gap-2 p-2 max-[500px]:flex-col max-[500px]:text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-orange-500/80 lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
                         <p class="text-gray-600 text-sm max-w-[90%]">Único método de pago Tarjeta de crédito en la misma sede.</p>
                     </div>
                 </div>
@@ -86,14 +86,14 @@
                     <h3 class="text-xl font-semibold text-[#4f67f2]">Detalles de la Reserva</h3>
                     <h3 class="text-md font-semibold text-gray-700">{{ selectedCar.model }}</h3>
                 </div>
-                <div class="flex flex-col">
-                    <div class="flex items-center gap-1">
+                <div class="flex flex-col gap-3">
+                    <div class="flex items-center gap-2 max-[500px]:flex-col max-[500px]:text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" stroke-[#2f9a64] lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
-                        <p class="text-gray-600">Seguro básico contra daños y accidentes.</p>
+                        <p class="text-gray-600 text-sm max-w-[90%]">Seguro básico contra daños y accidentes.</p>
                     </div>
-                    <div class="flex items-center gap-1">
+                    <div class="flex items-center gap-2 max-[500px]:flex-col max-[500px]:text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" stroke-[#2f9a64] lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
-                        <p class="text-gray-600">IVA incluido.</p>
+                        <p class="text-gray-600 text-sm max-w-[90%]">IVA incluido.</p>
                     </div>
                 </div>
                 <div class="flex flex-col gap-3">
