@@ -21,6 +21,8 @@ export class ReserveComponent implements OnInit {
 
   toastr:ToastrService = inject(ToastrService)
 
+  router:Router = inject(Router)
+
   activatedRouter:ActivatedRoute = inject(ActivatedRoute)
 
   fb:FormBuilder = inject(FormBuilder)
@@ -97,6 +99,7 @@ export class ReserveComponent implements OnInit {
     this.reservationsService.reserve(this.reserveForm.value).subscribe({
       next:(response)=>{
         this.toastr.success(response.message,"Exito")
+        this.router.navigate(["cars"])
         console.log(response)
       },
       error:(e:Error)=>{
