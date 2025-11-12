@@ -1,1 +1,17 @@
-<p>reservations-list works!</p>
+@if (reservations.length > 0) {
+
+    <section class="flex flex-wrap gap-10 ">
+        
+        @for (r of reservations; track $index) {
+
+            <app-reservation-card [reservation]="r"></app-reservation-card>
+        
+        }
+
+    </section>
+    
+}
+
+@else{
+    <p>no tines reservas aun</p>
+}

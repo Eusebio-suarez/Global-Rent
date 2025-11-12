@@ -11,7 +11,6 @@ export class NavBarComponent {
 
   showMenu = signal<boolean>(true)
 
-
   toggle(){
     this.showMenu.update(value => !value)
     console.log(this.showMenu())
