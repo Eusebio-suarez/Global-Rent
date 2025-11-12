@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { ApiResponse } from '../models/response/apiResponse';
-import { ReserveResponse } from '../models/response/reserveResponse';
+import { ReserveCreatedResponse, ReserveResponse } from '../models/response/reserveResponse'; 
 import { ReserveRequest } from '../models/request/reserveRequest';
 
 
@@ -15,9 +15,9 @@ export class ReservationsService {
 
   http:HttpClient = inject(HttpClient)
 
-  reserve(request:ReserveRequest):Observable<ApiResponse<ReserveResponse>>{
+  reserve(request:ReserveRequest):Observable<ApiResponse<ReserveCreatedResponse>>{
 
-    return this.http.post<ApiResponse<ReserveResponse>>(this.API_BASE_URL+"/reservations/reserve",request).pipe(
+    return this.http.post<ApiResponse<ReserveCreatedResponse>>(this.API_BASE_URL+"/reservations/reserve",request).pipe(
       catchError(error =>{
 
         console.log(error)
@@ -26,6 +26,18 @@ export class ReservationsService {
 
         return throwError(()=> new Error(message))
 
+      })
+    )
+  }
+
+  getReservations():Observable<ApiResponse<ReserveResponse[]>>{
+
+    return this.http.get<ApiResponse<ReserveResponse[]>>(this.API_BASE_URL+"/reservations").pipe(
+      catchError(error =>{
+
+        const message = error.error?.message || "Error al obtener la reservas"
+
+        return throwError(()=> new Error(message))
       })
     )
   }
