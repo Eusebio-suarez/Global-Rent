@@ -20,7 +20,11 @@ export const routes: Routes = [
         loadChildren: () => import("./features/cars/cars.routes").then(r => r.CARS_ROUTES)
     },
     {
-        path:"reservations",
-        loadChildren: () => import("./features/reservations/reservations.routes").then(r => r.RESERVATIONS_ROUTES)
+        path:"history",
+        loadChildren: () => import("./features/history/history.routes").then(r => r.HISTORY_ROUTES)
+    },
+    {
+        path:"reserves",
+        loadChildren: () => import("./features/reserves/reserves.routes").then(r => r.RESERVES_ROUTES)
     }
 ]

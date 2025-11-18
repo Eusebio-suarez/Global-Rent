@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { NgClass } from '@angular/common';
 import { AuthService } from '../../../../core/services/auth.service';
-import { Toast, ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login-form',
   imports: [ReactiveFormsModule, RouterLink, NgClass],
@@ -30,7 +30,7 @@ export class LoginFormComponent implements OnInit {
       next:(response)=>{
         console.log("exito")
         this.toastr.success(response.message,"Exito")
-        this.router.navigate(["/cars"])
+        this.router.navigate(["/reserves"])
       },
       error:(e:Error)=>{
         console.log(e)
