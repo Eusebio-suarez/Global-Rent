@@ -5,8 +5,8 @@ import { NavBarComponent } from "../../../../shared/components/nav-bar/nav-bar.c
 @Component({
   selector: 'app-reservation-page',
   imports: [RouterOutlet, NavBarComponent],
-  templateUrl: './reservation-page.component.html'
+  templateUrl: './history-page.component.html'
 })
-export class ReservationPageComponent {
+export class HistoryPageComponent {
 
 }

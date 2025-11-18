@@ -2,35 +2,38 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ReserveResponse } from '../../../../core/models/response/reserveResponse';
 import { ReservationsService } from '../../../../core/services/reservations.service';
 import { ToastrService } from 'ngx-toastr';
-import { ReservationCardComponent } from "../reservation-card/reservation-card.component";
+import { HistoryReservationCardComponent } from "../history-reservation-card/historyReservation-card.component";
 
 @Component({
   selector: 'app-reservations-list',
-  imports: [ReservationCardComponent],
-  templateUrl: './reservations-list.component.html'
+  imports: [HistoryReservationCardComponent],
+  templateUrl: './historyReservations-list.component.html'
 })
-export class ReservationsListComponent implements OnInit {
+export class HistoryReservationsListComponent implements OnInit {
 
   reservationsService:ReservationsService = inject(ReservationsService)
 
   toastr :ToastrService = inject(ToastrService)
 
+  isLoading:boolean = false
+
   reservations: ReserveResponse[] = []
 
   ngOnInit(){
+
+    this.isLoading = true
     
     this.reservationsService.getReservations().subscribe({
       next:(response)=>{
+
         this.reservations = response.data
-            console.log(this.reservations);
+        this.isLoading = false
 
       },
       error:(e)=>{
         this.toastr.error(e.message,"Error")
       }
     })
-
-    
   }
 
 }

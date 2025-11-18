@@ -1,4 +1,12 @@
 <main class="flex flex-wrap gap-10 px-10 py-15 justify-center">
+
+    @if(isLoading){
+
+        <section class="flex justify-center items-center">
+            <div class="w-6 h-6 rounded-full animate-spin border-2 border-blue-400 border-l-transparent "></div>
+        </section>
+    }
+
     @for (car of cars; track $index) {
 
         <app-car-card [car] = car ></app-car-card>

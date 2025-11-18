@@ -14,15 +14,19 @@ export class CarsComponent implements OnInit{
 
   cars:Car[] = []
 
+  isLoading:boolean = false
+
   ngOnInit(){
     this.getCars()
   }
 
   getCars(){
+    this.isLoading = true
 
     this.carsService.getCars().subscribe({
       next:(res)=>{
         console.log(res.data)
+          this.isLoading = false
 
         this.cars = res.data
       },
@@ -30,6 +34,7 @@ export class CarsComponent implements OnInit{
         alert("error")
       }
     })
+
   }
 
 }
