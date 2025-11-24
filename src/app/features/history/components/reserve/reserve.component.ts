@@ -1,11 +1,11 @@
 import { Component, inject, OnInit} from '@angular/core';
 import { Car } from '../../../../core/models/response/car';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CarsService } from '../../../../core/services/cars.service';
+import { CarsService } from '../../../../core/services/cars/cars.service';
 import { CurrencyPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
 import { FormBuilder, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { ReservationsService } from '../../../../core/services/reservations.service';
+import { ReservationsService } from '../../../../core/services/reserves/reservations.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

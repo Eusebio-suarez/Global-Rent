@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ReserveResponse } from '../../../../core/models/response/reserveResponse';
-import { ReservationsService } from '../../../../core/services/reservations.service';
+import { ReservationsService } from '../../../../core/services/reserves/reservations.service';
 import { ToastrService } from 'ngx-toastr';
 import { HistoryReservationCardComponent } from "../history-reservation-card/historyReservation-card.component";
 

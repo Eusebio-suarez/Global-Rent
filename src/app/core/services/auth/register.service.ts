@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
-import { ApiResponse } from '../models/response/apiResponse';
-import { RegisterRequest } from '../models/request/registerRequest';
+import { ApiResponse } from '../../models/response/apiResponse';
+import { RegisterRequest } from '../../models/request/registerRequest';
 
 @Injectable({
   providedIn: 'root'

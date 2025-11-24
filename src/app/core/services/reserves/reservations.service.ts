@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { ApiResponse } from '../models/response/apiResponse';
-import { ReserveCreatedResponse, ReserveResponse } from '../models/response/reserveResponse'; 
-import { ReserveRequest } from '../models/request/reserveRequest';
+import { ApiResponse } from '../../models/response/apiResponse';
+import { ReserveCreatedResponse, ReserveResponse } from '../../models/response/reserveResponse'; 
+import { ReserveRequest } from '../../models/request/reserveRequest';
 
 
 @Injectable({
@@ -14,6 +14,7 @@ export class ReservationsService {
   API_BASE_URL = "http://localhost:8080/api/v1"
 
   http:HttpClient = inject(HttpClient)
+
 
   reserve(request:ReserveRequest):Observable<ApiResponse<ReserveCreatedResponse>>{
 

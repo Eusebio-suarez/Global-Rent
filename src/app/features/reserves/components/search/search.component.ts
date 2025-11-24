@@ -1,8 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { NgClass } from '@angular/common';
+import { Car } from '../../../../core/models/response/car';
+import { CarsService } from '../../../../core/services/cars/cars.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-search',
   imports: [ɵInternalFormsSharedModule, ReactiveFormsModule , NgClass],
@@ -10,9 +13,17 @@ import { NgClass } from '@angular/common';
 })
 export class SearchComponent implements OnInit {
 
+  cars!:Car[]
+
   hours:string[] = []
 
   fb:FormBuilder = inject(FormBuilder)
+
+  carsService:CarsService = inject(CarsService)
+
+  toastr:ToastrService = inject(ToastrService)
+
+  isLoading = signal<boolean>(false)
 
   searchForm!:FormGroup
 
@@ -27,7 +38,6 @@ export class SearchComponent implements OnInit {
 
   maxEndDate!: Date;
   maxEndTextDate!: string;
-
 
 
   ngOnInit(): void {
@@ -163,7 +173,24 @@ export class SearchComponent implements OnInit {
 
   }
 
-  showinfo(){
-    console.log(this.searchForm.value)
+  getAvaliablesCars(){
+
+    this.isLoading.set(true)
+
+    const {startDate,endDate} = this.searchForm.value
+    
+    this.carsService.getAvaliablesCars({startDate:startDate,endDate:endDate}).subscribe({
+      next:(response)=>{
+        this.cars = response.data
+        console.log(response);
+        
+      },
+      error:()=>{
+        this.toastr.error("Error al obtener los autos","Error")
+      },
+      complete:()=>{
+        this.isLoading.set(false)
+      }
+    })
   }
 }
