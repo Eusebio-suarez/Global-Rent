@@ -9,7 +9,7 @@ import { NgClass } from "@angular/common";
 })
 export class NavBarComponent {
 
-  showMenu = signal<boolean>(true)
+  showMenu = signal<boolean>(false)
 
   toggle(){
     this.showMenu.update(value => !value)
