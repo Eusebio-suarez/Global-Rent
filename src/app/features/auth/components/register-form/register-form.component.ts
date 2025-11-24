@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { NgClass } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { RegisterService } from '../../../../core/services/register.service';
+import { RegisterService } from '../../../../core/services/auth/register.service';
 @Component({
   selector: 'app-register-form',
   imports: [ReactiveFormsModule,NgClass,RouterLink],
