@@ -1,7 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CarsService } from '../../../../core/services/cars.service';
+import { CarsService } from '../../../../core/services/cars/cars.service';
 import { Car } from '../../../../core/models/response/car';
 import { CarCardComponent } from "../car-card/car-card.component";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cars',
@@ -11,6 +12,8 @@ import { CarCardComponent } from "../car-card/car-card.component";
 export class CarsComponent implements OnInit{
 
   carsService:CarsService = inject(CarsService)
+
+  toastr:ToastrService = inject(ToastrService)
 
   cars:Car[] = []
 
@@ -31,7 +34,8 @@ export class CarsComponent implements OnInit{
         this.cars = res.data
       },
       error:()=>{
-        alert("error")
+
+        this.toastr.error("Error en el servidor.","Error")
       }
     })
 

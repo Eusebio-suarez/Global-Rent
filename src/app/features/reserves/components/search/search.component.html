@@ -92,7 +92,7 @@
             <button
                 type="button"
                 [disabled]="searchForm.invalid"
-                (click)="showinfo()"
+                (click)="getAvaliablesCars()"
                 class="sm:w-auto flex items-center gap-2 bg-[#4fb884]/90 hover:bg-[#42b77c] px-5 py-2 text-gray-200 font-semibold rounded-md">
                 Buscar
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
@@ -100,3 +100,9 @@
         </div>
     </div>
 </form>
+@if(isLoading()){
+
+    <section class="flex mt-10 justify-center items-center">
+            <div class="w-6 h-6 rounded-full animate-spin border-2 border-blue-400 border-l-transparent "></div>
+    </section>
+}
