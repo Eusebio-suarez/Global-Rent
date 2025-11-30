@@ -6,9 +6,12 @@ import { NgClass } from '@angular/common';
 import { Car } from '../../../../core/models/response/car';
 import { CarsService } from '../../../../core/services/cars/cars.service';
 import { ToastrService } from 'ngx-toastr';
+import { CarCardComponent } from "../../../cars/components/car-card/car-card.component";
+import { CarComponent } from "../car/car.component";
+import { ReserveDetailsService } from '../../../../core/services/reserves/reserve-details.service';
 @Component({
   selector: 'app-search',
-  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule , NgClass],
+  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, NgClass, CarComponent],
   templateUrl: './search.component.html'
 })
 export class SearchComponent implements OnInit {
@@ -24,6 +27,8 @@ export class SearchComponent implements OnInit {
   toastr:ToastrService = inject(ToastrService)
 
   isLoading = signal<boolean>(false)
+
+  reserveDetailsService:ReserveDetailsService = inject(ReserveDetailsService)
 
   searchForm!:FormGroup
 
@@ -62,20 +67,36 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  initForm(){
+  // En SearchComponent
+
+initForm() {
     this.searchForm = this.fb.group({
-      startPlace:["Aeropuerto",[Validators.required]],
-      endPlace:["Aeropuerto",[Validators.required]],
-      startDate:["",[Validators.required]],
-      startTime:["12:00",[Validators.required]],
-      endDate:["",[Validators.required]],
-      endTime:["12:00",[Validators.required]]
-    })
-  }
+        startPlace: ["Aeropuerto", [Validators.required]],
+        endPlace: ["Aeropuerto", [Validators.required]],
+        startDate: ["", [Validators.required]],
+        startTime: ["12:00", [Validators.required]],
+        endDate: [{ value: "", disabled: true }, [Validators.required]],
+        endTime: ["12:00", [Validators.required]]
+    });
+
+    const details = this.reserveDetailsService.reserveDetails();
+
+    if (details) {
+
+        this.searchForm.patchValue(details, { emitEvent: false });
+        
+        if (details.startDate) {
+            this.searchForm.get('endDate')?.enable({ emitEvent: false });
+            this.calculateEndDates();
+        }
+    }
+}
 
   subscribeForm(){
-    //al iniciar se desactiva la fecha de inicio por defecto
-    this.searchForm.get("endDate")?.disable()
+
+    this.searchForm.valueChanges.subscribe(()=>{
+      this.cars = []
+    })
 
     this.searchForm.get("startDate")?.valueChanges.subscribe((value)=>{
 
@@ -174,6 +195,9 @@ export class SearchComponent implements OnInit {
   }
 
   getAvaliablesCars(){
+
+    // signal para cambiar los detalles de la reserva
+    this.reserveDetailsService.setDetails(this.searchForm.value)
 
     this.isLoading.set(true)
 

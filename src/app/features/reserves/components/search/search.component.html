@@ -1,18 +1,18 @@
 <form
     [formGroup]="searchForm"
     class="flex flex-col gap-6 max-[800px]:items-center bg-[#C3D2FF] rounded-xl shadow-md p-10">
-    <div class="flex items-center gap-3 max-[450px]:flex-col">
+    <div class="flex items-center gap-3 max-[500px]:flex-col">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stroke-gray-700 lucide lucide-map-pin-icon lucide-map-pin"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
-        <div class="flex gap-5 max-[800px]:flex-col max-[450px]:max-w-[80%] ">
+        <div class="flex gap-5 max-[915px]:flex-col max-[500px]:max-w-[70%] ">
             <select
                 formControlName="startPlace"
                 class=" text-ellipsis px-3 py-2 outline-0 ring ring-gray-400 bg-[#e7f0f9] rounded-md shadow-md focus:ring-2  text-gray-700"
                 name="place" id="startPlace">
                 <option value="Aeropuerto">
-                    Aeropuerto El Edén - Armenia
+                    Entrega Aeropuerto El Edén - Armenia
                 </option>
                 <option value="Sede">
-                    Sede Global Rent - Armenia
+                    Entrega Sede Global Rent - Armenia
                 </option>
             </select>
             <select
@@ -21,10 +21,10 @@
                 name="place" id="endPlace">
                 
                 <option value="Aeropuerto" selected>
-                    Aeropuerto El Edén - Armenia
+                    Devolucion Aeropuerto El Edén - Armenia
                 </option>
                 <option value="Sede">
-                    Sede Global Rent - Armenia
+                    Devolucion Sede Global Rent - Armenia
                 </option>
             </select>
         </div>
@@ -100,9 +100,19 @@
         </div>
     </div>
 </form>
+
 @if(isLoading()){
 
     <section class="flex mt-10 justify-center items-center">
             <div class="w-6 h-6 rounded-full animate-spin border-2 border-blue-400 border-l-transparent "></div>
     </section>
 }
+
+<main class="w-full flex flex-wrap gap-15 py-14 justify-center">
+
+    @for (car of cars; track $index) {
+
+        <app-car [car] = car ></app-car>
+    }
+    
+</main>
