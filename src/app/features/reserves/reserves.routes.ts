@@ -1,6 +1,7 @@
 import { Routes } from "@angular/router";
 import { ReservesPageComponent } from "./pages/reserves-page/reserves-page.component";
 import { SearchComponent } from "./components/search/search.component";
+import { ReserveComponent } from "./components/reserve/reserve.component";
 
 
 export const RESERVES_ROUTES :Routes =[
@@ -11,6 +12,10 @@ export const RESERVES_ROUTES :Routes =[
             {
                 path:"",
                 component:SearchComponent
+            },
+            {
+                path:"reserve/:model",
+                component:ReserveComponent
             }
         ]
     }
