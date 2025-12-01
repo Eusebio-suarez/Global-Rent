@@ -1,16 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Car } from '../../../../core/models/response/car';
 import { CarsService } from '../../../../core/services/cars/cars.service';
 import { ReservationsService } from '../../../../core/services/reserves/reservations.service';
 import { CurrencyPipe } from '@angular/common';
-import { NgClass } from '@angular/common';
 import { ReserveDetailsService } from '../../../../core/services/reserves/reserve-details.service';
+import { ConfirmReserveComponent } from "../confirm-reserve/confirm-reserve.component";
 @Component({
   selector: 'app-reserve',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, ConfirmReserveComponent],
   templateUrl: './reserve.component.html'
 })
 export class ReserveComponent {
@@ -31,6 +30,9 @@ export class ReserveComponent {
   totalPrice:number = 0
 
   totalDays:number = 0
+
+  //modal
+  isOpenModal = false
 
   ngOnInit(){
 
@@ -55,6 +57,8 @@ export class ReserveComponent {
   }
 
   tryReserve(){
+
+    this.closeModal()
 
     /**
     this.reservationsService.reserve(this.reserveForm.value).subscribe({
@@ -87,6 +91,14 @@ export class ReserveComponent {
 
     this.totalPrice = this.totalDays * (this.selectedCar?.price? this.selectedCar.price : 0)
 
+  }
+
+  openModal(){
+    this.isOpenModal = true
+  }
+
+  closeModal(){
+    this.isOpenModal = false
   }
 
 }
