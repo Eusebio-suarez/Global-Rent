@@ -51,27 +51,23 @@ export class ReserveComponent {
 
       this.calculateTotal()
 
+      //actualizar
+      this.reserveDetailsService.reserveDetails.update(r => ({
+      ...r,
+      licensePlate: this.selectedCar?.licensePlate ?? ""
+      }));
+
     })
 
 
   }
 
   tryReserve(){
-
     this.closeModal()
 
-    /**
-    this.reservationsService.reserve(this.reserveForm.value).subscribe({
-      next:(response)=>{
-        this.toastr.success(response.message,"Exito")
-        this.router.navigate(["cars"])
-        console.log(response)
-      },
-      error:(e:Error)=>{
-        this.toastr.error(e.message,"Error")
-      }
-    })
-    **/
+  
+
+    console.log(this.reserveDetailsService.reserveDetails())
 
   }
   
