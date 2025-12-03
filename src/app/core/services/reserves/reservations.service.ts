@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { ApiResponse } from '../../models/response/apiResponse';
 import { ReserveCreatedResponse, ReserveResponse } from '../../models/response/reserveResponse'; 
-import { ReserveRequest } from '../../models/request/reserveRequest';
+import { ReserveDetails} from '../../models/request/reserveRequest';
 
 
 @Injectable({
@@ -16,7 +16,7 @@ export class ReservationsService {
   http:HttpClient = inject(HttpClient)
 
 
-  reserve(request:ReserveRequest):Observable<ApiResponse<ReserveCreatedResponse>>{
+  reserve(request:ReserveDetails):Observable<ApiResponse<ReserveCreatedResponse>>{
 
     return this.http.post<ApiResponse<ReserveCreatedResponse>>(this.API_BASE_URL+"/reservations/reserve",request).pipe(
       catchError(error =>{
