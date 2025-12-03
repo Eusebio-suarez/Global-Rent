@@ -7,6 +7,7 @@ import { ReservationsService } from '../../../../core/services/reserves/reservat
 import { CurrencyPipe } from '@angular/common';
 import { ReserveDetailsService } from '../../../../core/services/reserves/reserve-details.service';
 import { ConfirmReserveComponent } from "../confirm-reserve/confirm-reserve.component";
+import { ReserveDetails } from '../../../../core/models/request/reserveRequest';
 @Component({
   selector: 'app-reserve',
   imports: [CurrencyPipe, ConfirmReserveComponent],
@@ -65,9 +66,25 @@ export class ReserveComponent {
   tryReserve(){
     this.closeModal()
 
-  
+    const details = this.reserveDetailsService.reserveDetails()
 
-    console.log(this.reserveDetailsService.reserveDetails())
+    if(details === null){
+      return
+    }
+
+    this.reservationsService.reserve(details).subscribe({
+
+      next:(res)=>{
+        this.toastr.success(res.message, "Exito")
+
+        this.router.navigate(["history"])
+      },
+
+      error:(err)=>{
+        this.toastr.error(err.message, "Error")
+      }
+
+    })
 
   }
   
