@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { ApiResponse } from '../../models/response/apiResponse';
 import { ReserveCreatedResponse, ReserveResponse } from '../../models/response/reserveResponse'; 
 import { ReserveDetails} from '../../models/request/reserveRequest';
@@ -34,6 +34,12 @@ export class ReservationsService {
   getReservations():Observable<ApiResponse<ReserveResponse[]>>{
 
     return this.http.get<ApiResponse<ReserveResponse[]>>(this.API_BASE_URL+"/reservations").pipe(
+      
+      map((res) => ({
+        ...res,
+        data: res.data.reverse()
+      })),
+
       catchError(error =>{
 
         const message = error.error?.message || "Error al obtener la reservas"

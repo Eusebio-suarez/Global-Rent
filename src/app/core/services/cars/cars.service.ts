@@ -15,9 +15,16 @@ export class CarsService {
 
   getCars():Observable<ApiResponse<Car[]>>{
 
-    return this.http.get<ApiResponse<Car[]>>(this.API_BASE_URL+"/cars")
-  }
+    return this.http.get<ApiResponse<Car[]>>(this.API_BASE_URL+"/cars").pipe(
 
+      map((res)=>(
+        {
+          ...res,
+          data:res.data.sort((a,b) => a.price - b.price)
+        }
+      ))
+    )
+  }
 
   getCar(model:string):Observable<Car | undefined>{
 
@@ -29,7 +36,12 @@ export class CarsService {
 
   getAvaliablesCars(request:CarsAvaliablesRequest):Observable<ApiResponse<Car[]>>{
 
-    return this.http.get<ApiResponse<Car[]>>(this.API_BASE_URL+"/cars/avaliables?", {params:{startDate:request.startDate,endDate:request.endDate}})
+    return this.http.get<ApiResponse<Car[]>>(this.API_BASE_URL+"/cars/avaliables?", {params:{startDate:request.startDate,endDate:request.endDate}}).pipe(
+      map((res)=>({
+        ...res,
+        data:res.data.sort((a,b)=> a.price - b.price)
+      }))
+    )
   }
   
 }
