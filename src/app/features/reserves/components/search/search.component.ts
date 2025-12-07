@@ -1,7 +1,5 @@
 import { Component, inject, OnInit, signal, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule } from '@angular/forms';
-
-
 import { NgClass } from '@angular/common';
 import { Car } from '../../../../core/models/response/car';
 import { CarsService } from '../../../../core/services/cars/cars.service';
@@ -9,9 +7,12 @@ import { ToastrService } from 'ngx-toastr';
 import { CarComponent } from "../car/car.component";
 import { FormsModule } from '@angular/forms';
 import { ReserveDetailsService } from '../../../../core/services/reserves/reserve-details.service';
+import { ActivatedRoute } from '@angular/router';
+import { SearchInfoComponent } from "../search-info/search-info.component";
+import { NotFoundComponent } from "../not-found/not-found.component";
 @Component({
   selector: 'app-search',
-  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, NgClass, CarComponent, FormsModule],
+  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, NgClass, CarComponent, FormsModule, SearchInfoComponent, NotFoundComponent],
   templateUrl: './search.component.html'
 })
 export class SearchComponent implements OnInit {
@@ -29,6 +30,10 @@ export class SearchComponent implements OnInit {
   isLoading = signal<boolean>(false)
 
   reserveDetailsService:ReserveDetailsService = inject(ReserveDetailsService)
+
+  route:ActivatedRoute = inject(ActivatedRoute)
+
+  hasSearched:boolean = false
 
   searchForm!:FormGroup
 
@@ -56,6 +61,8 @@ export class SearchComponent implements OnInit {
     this.calculateHours()
 
     this.calculateStartTextDates()
+
+    this.getFilter()
 
   }
 
@@ -198,6 +205,8 @@ export class SearchComponent implements OnInit {
 
   getAvaliablesCars(){
 
+    this.hasSearched = true
+
     // signal para cambiar los detalles de la reserva
     this.reserveDetailsService.setDetails(this.searchForm.value)
 
@@ -226,5 +235,9 @@ export class SearchComponent implements OnInit {
         this.isLoading.set(false)
       }
     })
+  }
+
+  getFilter(){
+    this.filter = this.route.snapshot.params["model"]
   }
 }

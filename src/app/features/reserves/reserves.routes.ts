@@ -10,6 +10,10 @@ export const RESERVES_ROUTES :Routes =[
         component:ReservesPageComponent,
         children:[
             {
+                path:":model",
+                component:SearchComponent
+            },
+            {
                 path:"",
                 component:SearchComponent
             },
