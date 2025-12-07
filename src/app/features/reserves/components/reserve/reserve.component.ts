@@ -8,9 +8,10 @@ import { CurrencyPipe } from '@angular/common';
 import { ReserveDetailsService } from '../../../../core/services/reserves/reserve-details.service';
 import { ConfirmReserveComponent } from "../confirm-reserve/confirm-reserve.component";
 import { ReserveDetails } from '../../../../core/models/request/reserveRequest';
+import { MapComponent } from "../map/map.component";
 @Component({
   selector: 'app-reserve',
-  imports: [CurrencyPipe, ConfirmReserveComponent],
+  imports: [CurrencyPipe, ConfirmReserveComponent, MapComponent],
   templateUrl: './reserve.component.html'
 })
 export class ReserveComponent {
