@@ -1,6 +1,6 @@
 <form
     [formGroup]="searchForm"
-    class="flex flex-col gap-6 max-[800px]:items-center bg-[#C3D2FF] rounded-xl shadow-md p-10">
+    class="flex flex-col gap-6 max-[800px]:items-center bg-[#C3D2FF] rounded-xl shadow-md p-10 max-[600px]:max-w-[80%] m-auto">
     <div class="flex items-center gap-3 max-[500px]:flex-col">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stroke-gray-700 lucide lucide-map-pin-icon lucide-map-pin"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
         <div class="flex gap-5 max-[915px]:flex-col max-[500px]:max-w-[70%] ">
@@ -88,13 +88,18 @@
                 </div>
             </div>
         </div>
-        <div class="flex min-[800px]:ml-8 min-[1245px]:flex-1 min-[1245px]:justify-end max-[800px]:justify-center">
+        <div class="flex gap-5 max-[1000px]:justify-center  max-[1350px]:ml-8 max-[1000px]:ml-0">
+            <input
+                [(ngModel)]="filter"
+                [ngModelOptions]="{standalone: true}"
+                placeholder="modelo (opcional)"
+                class="bg-[#e7f1fc] max-[1500px]:max-w-[200px] h-[34px] ring-1 ring-gray-400 text-gray-700 rounded-md px-2 py-2 focus:outline-0 focus:ring-2"
+                type="text" name="model" id="model">
             <button
                 type="button"
                 [disabled]="searchForm.invalid"
                 (click)="getAvaliablesCars()"
-                class="sm:w-auto flex items-center gap-2 bg-[#4fb884]/90 hover:bg-[#42b77c] px-5 py-2 text-gray-200 font-semibold rounded-md">
-                Buscar
+                class="sm:w-auto flex items-center gap-2 bg-[#4fb884]/90 hover:bg-[#42b77c] px-3 py-1 text-gray-200 font-semibold rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
             </button>
         </div>
@@ -106,6 +111,25 @@
     <section class="flex mt-10 justify-center items-center">
             <div class="w-6 h-6 rounded-full animate-spin border-2 border-blue-400 border-l-transparent "></div>
     </section>
+}
+
+@if (!cars || cars.length === 0) {
+    <main class="w-full flex flex-col justify-center items-center">
+        <img
+            src="/carsearch.svg"
+            alt="Buscar vehículos"
+            class="w-[300px] max-w-[80%] opacity-80"
+        >
+
+        <div class="flex flex-col gap-3 items-center">
+            <h2 class="text-2xl text-center font-semibold text-[#425df6]/80 max-[450px]:max-w-[80%]">
+            Busca un vehículo para comenzar
+            </h2>
+            <p class="text-gray-500 text-sm text-center max-w-[300px]">
+                Ingresa la información de entrega, devolución para ver resultados de autos disponibles.
+            </p>
+        </div>
+    </main>
 }
 
 <main class="w-full flex flex-wrap gap-15 py-14 justify-center">

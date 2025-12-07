@@ -20,6 +20,28 @@
     
 }
 
-@else{
-    <p>no tines reservas aun</p>
+@if(!reservations || reservations.length <= 0 ){
+
+    <main class="w-full flex flex-col justify-center items-center">
+        <img
+            src="/historys.svg"
+            alt="Buscar vehículos"
+            class="w-[300px] max-w-[80%] opacity-80"
+        >
+
+        <div class="flex flex-col gap-3 items-center">
+            <h2 class="text-2xl text-center font-semibold text-[#425df6]/80 max-[450px]:max-w-[80%]">
+            No tienes reservas de autos aun
+            </h2>
+            <p class="text-gray-500 text-sm text-center max-w-[300px]">
+                Ingresa a la sección de reservar y busca el modelo de auto perfecto para ti.
+            </p>
+            <a
+            routerLink="/reserves"
+            class="flex gap-2 items-center px-4 py-1.5 text-white bg-[#4fb884]/80 hover:bg-[#2d9c68]/80 rounded-md hover:shadow-sm transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-search-icon lucide-calendar-search"><path d="M16 2v4"/><path d="M21 11.75V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7.25"/><path d="m22 22-1.875-1.875"/><path d="M3 10h18"/><path d="M8 2v4"/><circle cx="18" cy="18" r="3"/></svg>            
+                <span class="font-medium">Reservar</span>
+            </a>
+        </div>
+    </main>
 }
