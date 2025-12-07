@@ -6,12 +6,12 @@ import { NgClass } from '@angular/common';
 import { Car } from '../../../../core/models/response/car';
 import { CarsService } from '../../../../core/services/cars/cars.service';
 import { ToastrService } from 'ngx-toastr';
-import { CarCardComponent } from "../../../cars/components/car-card/car-card.component";
 import { CarComponent } from "../car/car.component";
+import { FormsModule } from '@angular/forms';
 import { ReserveDetailsService } from '../../../../core/services/reserves/reserve-details.service';
 @Component({
   selector: 'app-search',
-  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, NgClass, CarComponent],
+  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, NgClass, CarComponent, FormsModule],
   templateUrl: './search.component.html'
 })
 export class SearchComponent implements OnInit {
@@ -31,6 +31,8 @@ export class SearchComponent implements OnInit {
   reserveDetailsService:ReserveDetailsService = inject(ReserveDetailsService)
 
   searchForm!:FormGroup
+
+  filter:string = ""
 
   minStartDate!:Date;
   minStartTextDate!: string;
@@ -67,30 +69,30 @@ export class SearchComponent implements OnInit {
     }
   }
 
+
   // En SearchComponent
+  initForm() {
+      this.searchForm = this.fb.group({
+          startPlace: ["Aeropuerto", [Validators.required]],
+          endPlace: ["Aeropuerto", [Validators.required]],
+          startDate: ["", [Validators.required]],
+          startTime: ["12:00", [Validators.required]],
+          endDate: [{ value: "", disabled: true }, [Validators.required]],
+          endTime: ["12:00", [Validators.required]]
+      });
 
-initForm() {
-    this.searchForm = this.fb.group({
-        startPlace: ["Aeropuerto", [Validators.required]],
-        endPlace: ["Aeropuerto", [Validators.required]],
-        startDate: ["", [Validators.required]],
-        startTime: ["12:00", [Validators.required]],
-        endDate: [{ value: "", disabled: true }, [Validators.required]],
-        endTime: ["12:00", [Validators.required]]
-    });
+      const details = this.reserveDetailsService.reserveDetails();
 
-    const details = this.reserveDetailsService.reserveDetails();
+      if (details) {
 
-    if (details) {
-
-        this.searchForm.patchValue(details, { emitEvent: false });
-        
-        if (details.startDate) {
-            this.searchForm.get('endDate')?.enable({ emitEvent: false });
-            this.calculateEndDates();
-        }
-    }
-}
+          this.searchForm.patchValue(details, { emitEvent: false });
+          
+          if (details.startDate) {
+              this.searchForm.get('endDate')?.enable({ emitEvent: false });
+              this.calculateEndDates();
+          }
+      }
+  }
 
   subscribeForm(){
 
@@ -205,8 +207,16 @@ initForm() {
     
     this.carsService.getAvaliablesCars({startDate:startDate,endDate:endDate}).subscribe({
       next:(response)=>{
-        this.cars = response.data
         console.log(response);
+
+        if(this.filter  && this.filter.trim() !== ""){
+          console.log("si");
+          
+          response.data = response.data.filter( c => c.model.toLowerCase().includes(this.filter.toLowerCase()))
+        }
+
+        this.cars = response.data
+        console.log(this.cars);
         
       },
       error:()=>{

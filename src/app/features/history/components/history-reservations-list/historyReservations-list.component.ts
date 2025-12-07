@@ -3,10 +3,10 @@ import { ReserveResponse } from '../../../../core/models/response/reserveRespons
 import { ReservationsService } from '../../../../core/services/reserves/reservations.service';
 import { ToastrService } from 'ngx-toastr';
 import { HistoryReservationCardComponent } from "../history-reservation-card/historyReservation-card.component";
-
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-reservations-list',
-  imports: [HistoryReservationCardComponent],
+  imports: [HistoryReservationCardComponent,RouterLink],
   templateUrl: './historyReservations-list.component.html'
 })
 export class HistoryReservationsListComponent implements OnInit {
@@ -17,7 +17,7 @@ export class HistoryReservationsListComponent implements OnInit {
 
   isLoading:boolean = false
 
-  reservations: ReserveResponse[] = []
+  reservations!: ReserveResponse[]
 
   ngOnInit(){
 
