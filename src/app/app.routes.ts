@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './features/dashboard/pages/dashboard/dashboard.component';
+import { authenticationGuard } from './core/guards/authentication.guard';
 
 export const routes: Routes = [
     {
@@ -13,7 +14,8 @@ export const routes: Routes = [
     },
     {
         path:"auth",
-        loadChildren: () => import("./features/auth/auth.routes").then(r => r.AUTH_ROUTES)
+        loadChildren: () => import("./features/auth/auth.routes").then(r => r.AUTH_ROUTES),
+        canActivateChild:[authenticationGuard]
     },
     {
         path:"cars",
