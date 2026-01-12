@@ -17,7 +17,7 @@ import { NotFoundComponent } from "../not-found/not-found.component";
 })
 export class SearchComponent implements OnInit {
 
-  cars!:Car[]
+  cars:Car[] = []
 
   hours:string[] = []
 
@@ -76,8 +76,6 @@ export class SearchComponent implements OnInit {
     }
   }
 
-
-  // En SearchComponent
   initForm() {
       this.searchForm = this.fb.group({
           startPlace: ["Aeropuerto", [Validators.required]],
@@ -205,8 +203,6 @@ export class SearchComponent implements OnInit {
 
   getAvaliablesCars(){
 
-    this.hasSearched = true
-
     // signal para cambiar los detalles de la reserva
     this.reserveDetailsService.setDetails(this.searchForm.value)
 
@@ -233,6 +229,7 @@ export class SearchComponent implements OnInit {
       },
       complete:()=>{
         this.isLoading.set(false)
+        this.hasSearched = true
       }
     })
   }
