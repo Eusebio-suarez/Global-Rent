@@ -16,7 +16,7 @@ export class AuthService {
 
     return this.http.post<ApiResponse<{token:string}>>(this.API_BASE_URL+"/login",credentials).pipe(
       tap(res =>{
-        localStorage.setItem("Authorization","Bearer "+res.data.token)
+        localStorage.setItem("Authorization",res.data.token)
       }),
     
       catchError(error => {
