@@ -1,6 +1,17 @@
-import { CanActivateFn } from '@angular/router';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { JwtService } from '../services/jwt/jwt.service';
 
 export const authenticationGuard: CanActivateFn = (route, state) => {
 
-  return true;
+  const jwt = inject(JwtService)
+
+  const router = inject(Router)
+
+  if(!jwt.isTokenExpired()){
+    return true
+  }
+
+  return router.parseUrl("/auth/login")
+
 };
