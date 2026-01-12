@@ -17,7 +17,9 @@ export class HistoryReservationsListComponent implements OnInit {
 
   isLoading:boolean = false
 
-  reservations!: ReserveResponse[]
+  hasSearch = false
+
+  reservations: ReserveResponse[] = []
 
   ngOnInit(){
 
@@ -28,6 +30,7 @@ export class HistoryReservationsListComponent implements OnInit {
 
         this.reservations = response.data
         this.isLoading = false
+        this.hasSearch = true
 
       },
       error:(e)=>{
