@@ -16,4 +16,8 @@ export class JwtService {
     return this.jwt.isTokenExpired(this.getToken())
     
   }
+
+  getRole():string{
+    return this.jwt.decodeToken(this.getToken()).role??"ROLE_USER"
+  }
 }
