@@ -4,6 +4,7 @@ import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular
 import { NgClass } from '@angular/common';
 import { AuthService } from '../../../../core/services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { JwtService } from '../../../../core/services/jwt/jwt.service';
 @Component({
   selector: 'app-login-form',
   imports: [ReactiveFormsModule, RouterLink, NgClass],
@@ -17,6 +18,7 @@ export class LoginFormComponent implements OnInit {
   private authservice:AuthService = inject(AuthService)
   private toastr:ToastrService = inject(ToastrService)
   private router:Router = inject(Router)
+  private jwt:JwtService = inject(JwtService)
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -28,14 +30,37 @@ export class LoginFormComponent implements OnInit {
   tryLogin(){
     this.authservice.login(this.loginForm.value).subscribe({
       next:(response)=>{
-        console.log("exito")
+        
         this.toastr.success(response.message,"Exito")
-        this.router.navigate(["/reserves"])
+
+        this.redirect()
+
       },
       error:(e:Error)=>{
         console.log(e)
         this.toastr.error(e.message)
       }
     })
+  }
+
+  redirect(){
+
+    const role = this.jwt.getRole()
+
+    switch(role){
+
+      case "ROLE_USER":
+        this.router.navigate(["/reserves"])
+      break
+
+      case "ROLE_ADMIN":
+        this.router.navigate(["/admin"])
+      break
+
+      default:
+        this.router.navigate(["/reserves"])
+      break
+    }
+
   }
 }

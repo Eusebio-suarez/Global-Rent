@@ -25,12 +25,14 @@ export const routes: Routes = [
         path:"history",
         loadChildren: () => import("./features/history/history.routes").then(r => r.HISTORY_ROUTES),
         canActivate:[authenticationGuard]
-
     },
     {
         path:"reserves",
         loadChildren: () => import("./features/reserves/reserves.routes").then(r => r.RESERVES_ROUTES),
         canActivate:[authenticationGuard]
-
+    },
+    {
+        path:"admin",
+        loadChildren: () => import("./features/admin/admin.routes").then(r => r.ADMIN_ROUTES)
     }
 ]
