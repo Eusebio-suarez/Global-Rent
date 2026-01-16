@@ -16,3 +16,18 @@ export interface ReserveResponse{
     endTime:string
     totalPrice:number
 }
+
+export interface AdminReserveResponse{
+    id:number
+    clientName:string
+    clientEmail:string,
+    carModel:string,
+    carImg:string,
+    startPlace:string,
+    endPlace:string,
+    startDate:string,
+    startTime:string,
+    endDate:string
+    endTime:string
+    totalPrice:number
+}
