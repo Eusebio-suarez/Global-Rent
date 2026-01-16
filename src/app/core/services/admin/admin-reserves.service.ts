@@ -23,4 +23,8 @@ export class AdminReservesService {
       ))
     )
   }
+
+  getById(id:number):Observable<ApiResponse<AdminReserveResponse>>{
+    return this.http.get<ApiResponse<AdminReserveResponse>>(this.API_BASE_URL+"reservations/"+id)
+  }
 }
