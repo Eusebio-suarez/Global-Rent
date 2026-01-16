@@ -4,10 +4,11 @@ import { AdminReservesService } from '../../../../core/services/admin/admin-rese
 import { ToastrService } from 'ngx-toastr';
 import { CurrencyPipe } from '@angular/common';
 import { ReservesInfoComponent } from '../reserves-info/reserves-info.component';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-reserves-list',
-  imports: [CurrencyPipe,ReservesInfoComponent],
+  imports: [CurrencyPipe, ReservesInfoComponent, RouterLink],
   templateUrl: './reserves-list.component.html'
 })
 export class ReservesListComponent implements OnInit {
@@ -18,9 +19,14 @@ export class ReservesListComponent implements OnInit {
 
   toastr = inject(ToastrService)
 
+  isLoading = false
+
   ngOnInit() {
 
+    this.isLoading = true
+
     this.adminService.getAllReserves().subscribe(
+
       {
         next:(response)=>{
 
@@ -31,6 +37,9 @@ export class ReservesListComponent implements OnInit {
         error:(err)=> {
 
           this.toastr.error("error al obtener reservas","Error")
+        },
+        complete:()=>{
+          this.isLoading = false
         }
       }
     )

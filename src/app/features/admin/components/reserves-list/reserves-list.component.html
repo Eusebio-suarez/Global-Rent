@@ -1,7 +1,7 @@
 
 <app-reserves-info></app-reserves-info>
 <div class="overflow-x-auto xl:overflow-x-hidden rounded-xl border border-indigo-300/70">
-    <table class=" min-w-[900px] w-full bg-indigo-100/70 border-collapse">
+    <table class=" min-w-[1000px] w-full bg-indigo-100/70 border-collapse">
         <thead class="bg-indigo-200/60">
             <tr>
                 <th>
@@ -36,14 +36,15 @@
                 </th>
             </tr>
         </thead>
-
         <tbody>
             @for (item of reserves; track $index) {
 
-                <tr class="odd:bg-indigo-200/20 border border-x-0 border-gray-400/50 transition hover:scale-102 hover:shadow">
+                <tr
+                    [routerLink]="[item.id]"
+                    class="odd:bg-indigo-200/20 border border-x-0 border-gray-400/50 transition cursor-pointer hover:scale-102 hover:shadow">
                     <td class="px-6 py-2 text-gray-600">
                         <span class=" text-gray-600 text-xs">
-                                {{item.id}}
+                            {{item.id}}
                         </span>
                     </td>
                     <td class="py-2 text-gray-600 text-sm">
@@ -61,12 +62,12 @@
                     </td>
                     <td class="px-6 py-2 text-gray-600">
                         <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-600/40">
-                                {{item.startDate}}
+                                {{item.startDate + " : " + item.startTime}}
                         </span>
                     </td>
                     <td class="px-6 py-2 text-gray-600">
                         <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-600/40">
-                                {{item.endDate}}
+                                {{item.endDate + " : " + item.startTime}}
                         </span>
                     </td>
                     <td class="px-6 py-2">
@@ -82,3 +83,9 @@
         </tbody>
     </table>
 </div>
+
+@if (isLoading) {
+    <section class="flex justify-center items-center">
+            <div class="w-6 h-6 rounded-full animate-spin border-2 border-blue-400 border-l-transparent "></div>
+    </section>
+}
