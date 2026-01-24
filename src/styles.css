@@ -193,3 +193,41 @@ button.toast-close-button {
         width: 25em;
     }
 }
+
+.slider{
+    display: block;
+    width: 50px;
+    height: 28px;
+    position: relative;
+    background-color: #b8c6f1;
+    border-radius: 40px;
+
+    input{
+        opacity: 0;
+        width: 0px;
+        height: 0px;
+    }
+
+}
+
+.slider .circle{
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    background: #fcfffe;
+    top: 50%;
+    left: 4px;
+    border-radius: 100%;
+    transform: translateY(-50%);
+    transition: all 200ms;
+}
+
+.active >.circle{
+    background-color: #f3fff9;
+    transition: all 200ms;
+    transform: translate(22px,-50%);
+}
+
+.active{
+    @apply bg-green-400/70
+}
