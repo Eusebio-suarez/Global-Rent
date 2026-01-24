@@ -1,1 +1,18 @@
-<p>cars-list works!</p>
+
+@if (isLoading) {
+    <section class="flex justify-center items-center">
+            <div class="w-6 h-6 rounded-full animate-spin border-2 border-blue-400 border-l-transparent "></div>
+    </section>
+}
+
+<div class="grid gap-10 md:grid-cols-2 xl:grid-cols-3">
+
+    @for (item of cars; track $index) {
+
+        <app-car-admin-card [car] = item ></app-car-admin-card>
+    }
+
+</div>
+
+<app-update-car-modal></app-update-car-modal>
+
