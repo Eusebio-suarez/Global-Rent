@@ -78,7 +78,6 @@
                                 {{selectedImage?.name?? "Seleccionar Imagen"}}
                             </div>
                         </label>
-    
                             <input
                                 accept="image/*"
                                 (change)="selectImage($event)"
@@ -93,13 +92,13 @@
             <div class="flex gap-5 w-full justify-between sm:justify-center">
                 <button
                     (click)="cancel()"
-                    class="px-6 py-2 bg-[#d35472] text-white rounded hover:bg-[#cc4060] transition-colors">
+                    class="px-4 py-1-5 bg-[#d35472] text-white rounded hover:bg-[#cc4060] transition-colors">
                     Cancelar
                 </button>
                 <button
                     [disabled]="updateForm.invalid"
                     (click)="update()"
-                    class="bg-[#4fb884]/90 hover:bg-[#2d9c68]/80 px-6 py-2 transition-colors text-white  rounded-sm focus:outline-0 cursor-pointer"
+                    class="bg-[#4fb884]/90 hover:bg-[#2d9c68]/80 px-4 py-1.5 transition-colors text-white  rounded-sm focus:outline-0 cursor-pointer"
                     >
                     Actualizar
                 </button>
