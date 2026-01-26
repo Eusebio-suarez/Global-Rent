@@ -13,6 +13,13 @@ export class CarAdminCardComponent {
   car = input.required<AdminCarDTO>()
 
   updateCarModal = inject(UpdateCarModalService)
+
+  selectCar(){
+
+    this.updateCarModal.toggle()
+
+    this.updateCarModal.setCar(this.car())
+  }
 }
 
 
