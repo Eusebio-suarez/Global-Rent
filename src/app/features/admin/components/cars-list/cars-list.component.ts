@@ -4,10 +4,11 @@ import { AdminCarDTO } from '../../../../core/models/response/car';
 import { ToastrService } from 'ngx-toastr';
 import { CarAdminCardComponent } from '../car-admin-card/car-admin-card.component';
 import { UpdateCarModalComponent } from "../update-car-modal/update-car-modal.component";
+import { ChangeStatusModalComponent } from "../change-status-modal/change-status-modal.component";
 
 @Component({
   selector: 'app-cars-list',
-  imports: [CarAdminCardComponent, UpdateCarModalComponent],
+  imports: [CarAdminCardComponent, UpdateCarModalComponent, ChangeStatusModalComponent],
   templateUrl: './cars-list.component.html'
 })
 export class CarsListComponent implements OnInit {
@@ -42,5 +43,40 @@ export class CarsListComponent implements OnInit {
         this.isLoading = false
       }
     })
+  }
+
+  confirmChange(data:{licensePlate:string, status:boolean}){
+    this.carsService.changeStatus(data.licensePlate,this.createStatusFromData(data.status)).subscribe({
+      next:(res)=>{
+        const car = this.cars.find( c => c.licensePlate == data.licensePlate)
+
+        if(car){
+          car.status = res.data.status
+        }
+
+        this.toastr.success("se cambio el estado con exito","Exito")
+
+      },
+      error:()=>{
+        this.toastr.error("error al cambiar estado","Error")
+
+      },
+      complete:()=>{
+        this.isLoading = false
+      }
+    }
+
+    )
+  }
+
+  createStatusFromData(status:boolean){
+
+    const formData = new FormData()
+
+    const blobData = new Blob([JSON.stringify({status:!status})],{type:"application/json"})
+
+    formData.append("data",blobData)
+
+    return formData
   }
 }

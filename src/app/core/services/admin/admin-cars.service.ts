@@ -18,7 +18,13 @@ export class AdminCarsService {
 
   update(licensePlate:string,formData:FormData){
 
-    return this.http.patch<ApiResponse<any>>(this.API_BASE_URL+`/${licensePlate}`,formData)
+    return this.http.patch<ApiResponse<AdminCarDTO>>(this.API_BASE_URL+`/${licensePlate}`,formData)
+  }
+
+  changeStatus(licensePlate: string,data:FormData){
+
+    return this.http.patch<ApiResponse<AdminCarDTO>>(this.API_BASE_URL+`/${licensePlate}`,data)
+
   }
 
 }
