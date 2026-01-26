@@ -22,6 +22,11 @@ export class CarsListComponent implements OnInit {
 
   ngOnInit() {
 
+    this.getCars()
+  }
+
+  getCars(){
+
     this.isLoading = true
 
     this.carsService.getAllCars().subscribe({
@@ -38,5 +43,4 @@ export class CarsListComponent implements OnInit {
       }
     })
   }
-
 }

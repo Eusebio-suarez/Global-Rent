@@ -15,4 +15,10 @@ export class AdminCarsService {
   getAllCars(){
     return this.http.get<ApiResponse<AdminCarDTO[]>>(this.API_BASE_URL)
   }
+
+  update(licensePlate:string,formData:FormData){
+
+    return this.http.patch<ApiResponse<any>>(this.API_BASE_URL+`/${licensePlate}`,formData)
+  }
+
 }
