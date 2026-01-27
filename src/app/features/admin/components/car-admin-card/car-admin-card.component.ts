@@ -3,6 +3,7 @@ import { AdminCarDTO } from '../../../../core/models/response/car';
 import { CurrencyPipe, NgClass } from '@angular/common';
 import { UpdateCarModalService } from '../../../../core/services/admin/update-car-modal.service';
 import { ChangeStatusModalService } from '../../../../core/services/admin/change-status-modal.service';
+import { DeleteCarModalService } from '../../../../core/services/admin/delete-car-modal.service';
 
 @Component({
   selector: 'app-car-admin-card',
@@ -17,6 +18,8 @@ export class CarAdminCardComponent {
 
   changeStatusModal = inject(ChangeStatusModalService)
 
+  deleteCarModal = inject(DeleteCarModalService)
+
   selectUpdateCar(){
 
     this.updateCarModal.toggle()
@@ -27,6 +30,12 @@ export class CarAdminCardComponent {
   selectChangeCar(){
     this.changeStatusModal.toggle()
     this.changeStatusModal.setCar(this.car())
+  }
+
+  selecteDeleteCar(){
+
+    this.deleteCarModal.setCar(this.car())
+    this.deleteCarModal.toggle()
   }
 }
 
