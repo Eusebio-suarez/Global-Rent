@@ -31,4 +31,8 @@ export class AdminCarsService {
 
   }
 
+  delete(licensePlate:string){
+    return this.http.delete<ApiResponse<void>>(this.API_BASE_URL+`/${licensePlate}`)
+  }
+
 }

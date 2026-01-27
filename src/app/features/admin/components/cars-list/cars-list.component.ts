@@ -7,10 +7,11 @@ import { UpdateCarModalComponent } from "../update-car-modal/update-car-modal.co
 import { ChangeStatusModalComponent } from "../change-status-modal/change-status-modal.component";
 import { CreateCarModalComponent } from '../create-car-modal/create-car-modal.component';
 import { CreateCarModalService } from '../../../../core/services/admin/create-car-modal.service';
+import { DeleteCarModalComponent } from "../delete-car-modal/delete-car-modal.component";
 
 @Component({
   selector: 'app-cars-list',
-  imports: [CarAdminCardComponent, UpdateCarModalComponent, ChangeStatusModalComponent, CreateCarModalComponent],
+  imports: [CarAdminCardComponent, UpdateCarModalComponent, ChangeStatusModalComponent, CreateCarModalComponent, DeleteCarModalComponent],
   templateUrl: './cars-list.component.html'
 })
 export class CarsListComponent implements OnInit {
