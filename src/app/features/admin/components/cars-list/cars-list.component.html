@@ -14,6 +14,14 @@
 
 </div>
 
+<button
+    (click)="createModalService.toggle()"
+    class=" fixed bottom-3 right-6 md:bottom-5 md:right-10 flex items-center z-40 bg-[#34c782] hover:bg-[#31ac72] p-3 transition text-white/80 rounded-full cursor-pointer shadow-2xl border-3 border-white/90">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+</button>
+
+<app-create-car-modal (refresh)="getCars()" ></app-create-car-modal>
+
 <app-update-car-modal (refresh)="getCars()"></app-update-car-modal>
 
 <app-change-status-modal (confirm)="confirmChange($event)"></app-change-status-modal>

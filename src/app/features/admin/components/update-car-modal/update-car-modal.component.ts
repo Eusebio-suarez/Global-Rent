@@ -86,6 +86,8 @@ export class UpdateCarModalComponent implements OnInit {
 
       if(file.size > 2 * 1000000){
         this.toastr.error("Formato o tamaño invalido", "Error")
+
+        return
       }
 
       this.selectedImage = file
