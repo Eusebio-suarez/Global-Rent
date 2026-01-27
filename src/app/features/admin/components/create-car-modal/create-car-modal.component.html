@@ -2,40 +2,54 @@
 
     <div class="fixed inset-0 bg-gray-800/20 backdrop-blur-xs flex items-center justify-center z-50">
         <div class="flex flex-col gap-3 p-5 bg-[#d9e8f8] border-2 border-[#788CFF]/70 rounded-lg shadow-2xl max-w-[80%]">
-            <h3 class="text-2xl text-center font-semibold text-[#4f67f2]">Actualizar Auto</h3>
+            <h3 class="text-2xl text-center font-semibold text-[#4f67f2]">Crear Auto</h3>
             <form
                 class="flex flex-col gap-5 w-full"
-                action="" [formGroup]="updateForm">
+                action="" [formGroup]="createForm">
                 <div class="flex flex-col gap-2">
                     <label class="text-[#425df6] font-semibold" for="plate">Placa</label>
                     <input
-                        [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':updateForm.controls['licensePlate'].invalid}"
+                        [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':createForm.controls['licensePlate'].invalid && createForm.controls['licensePlate'].touched}"
                         type="text" name="name" id="plate"
                         formControlName="licensePlate"
                         class=" px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800"
                     >
                 </div>
-                <div class="flex flex-col gap-5 sm:flex-row">
-                    <div class="flex flex-col gap-2 w-full">
+                <div class="flex flex-col gap-2 w-full">
                         <label class="text-[#425df6] font-semibold" for="model">Modelo</label>
                         <input
-                            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':updateForm.controls['model'].invalid}"
+                            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':createForm.controls['model'].invalid && createForm.controls['model'].touched}"
                             type="text" name="name" id="model"
                             formControlName="model"
                             class="w-full px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800"
                         >
                     </div>
+                <div class="flex flex-col gap-5 sm:flex-row">
                     <div class="flex flex-col gap-2">
                         <label class="text-[#425df6] font-semibold" for="type">Tipo</label>
                         <select
-                            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':updateForm.controls['type'].invalid}"
+                            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':createForm.controls['type'].invalid && createForm.controls['type'].touched}"
                             type="text" name="name" id="type"
                             formControlName="type"
                             class="px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800"
                         >
+                            <option value="" disabled>Seleccione una opcion</option>
                             <option value="SUV">SUV</option>
                             <option value="Sedán">Sedán</option>
                             <option value="Deportivo">Deportivo</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-[#425df6] font-semibold" for="status">Estado</label>
+                        <select
+                            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':createForm.controls['status'].invalid && createForm.controls['status'].touched}"
+                            type="text" name="name" id="status"
+                            formControlName="status"
+                            class="px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800"
+                        >
+                            <option value="" disabled>Seleccione una opcion</option>
+                            <option [ngValue]="true">Activado</option>
+                            <option [ngValue]="false">Desactivado</option>
                         </select>
                     </div>
                 </div>
@@ -43,7 +57,7 @@
                     <div class="flex flex-col gap-2">
                         <label class="text-[#425df6] font-semibold" for="people">Capacidad</label>
                         <input
-                            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':updateForm.controls['people'].invalid}"
+                            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':createForm.controls['people'].invalid && createForm.controls['people'].touched} "
                             type="number" name="name" id="people"
                             formControlName="people"
                             class=" w-full px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800"
@@ -52,7 +66,7 @@
                     <div class="flex flex-col gap-2">
                         <label class="text-[#425df6] font-semibold" for="bags">Maletas</label>
                         <input
-                            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':updateForm.controls['bags'].invalid}"
+                            [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':createForm.controls['bags'].invalid && createForm.controls['bags'].touched}"
                             type="number" name="name" id="bags"
                             formControlName="bags"
                             class="w-full px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800"
@@ -63,14 +77,14 @@
                     <div class="flex flex-col gap-2">
                         <label class="text-[#425df6] font-semibold" for="price">Precio</label>
                             <input
-                                [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':updateForm.controls['price'].invalid}"
+                                [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':createForm.controls['price'].invalid && createForm.controls['price'].touched}"
                                 type="number" name="name" id="price"
                                 formControlName="price"
                                 class="w-full px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800"
                             >
                     </div>
                     <div class="flex flex-col gap-2">
-                        <label class="w-full flex flex-col gap-2 text-[#425df6] font-semibold" for="file">Cambiar Imagen
+                        <label class="w-full flex flex-col gap-2 text-[#425df6] font-semibold" for="file">Imagen
                             <div
                                 class="flex items-center gap-2 w-full px-3 py-1.5 font-normal focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800 cursor-pointer"
                             >
@@ -82,7 +96,6 @@
                                 accept="image/*"
                                 (change)="selectImage($event)"
                                 hidden
-                                [ngClass]="{'ring-orange-500/70 focus:ring-1 focus:ring-orange-500/60':updateForm.controls['price'].invalid}"
                                 type="file" name="name" id="file"
                                 class="w-full px-3 py-1.5 focus:outline-0 ring-1 ring-gray-500/60 rounded-md focus:ring-2 focus:ring-[#8091f2] text-gray-800"
                             >
@@ -96,11 +109,10 @@
                     Cancelar
                 </button>
                 <button
-                    [disabled]="updateForm.invalid"
-                    (click)="update()"
+                    (click)="create()"
                     class="bg-[#4fb884]/90 hover:bg-[#2d9c68]/80 px-4 py-1.5 transition-colors text-white  rounded-sm focus:outline-0 cursor-pointer"
                     >
-                    Actualizar
+                    Crear
                 </button>
             </div>
         </div>
