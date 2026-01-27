@@ -5,10 +5,12 @@ import { ToastrService } from 'ngx-toastr';
 import { CarAdminCardComponent } from '../car-admin-card/car-admin-card.component';
 import { UpdateCarModalComponent } from "../update-car-modal/update-car-modal.component";
 import { ChangeStatusModalComponent } from "../change-status-modal/change-status-modal.component";
+import { CreateCarModalComponent } from '../create-car-modal/create-car-modal.component';
+import { CreateCarModalService } from '../../../../core/services/admin/create-car-modal.service';
 
 @Component({
   selector: 'app-cars-list',
-  imports: [CarAdminCardComponent, UpdateCarModalComponent, ChangeStatusModalComponent],
+  imports: [CarAdminCardComponent, UpdateCarModalComponent, ChangeStatusModalComponent, CreateCarModalComponent],
   templateUrl: './cars-list.component.html'
 })
 export class CarsListComponent implements OnInit {
@@ -20,6 +22,8 @@ export class CarsListComponent implements OnInit {
   toastr = inject(ToastrService)
 
   isLoading = false
+
+  createModalService = inject(CreateCarModalService)
 
   ngOnInit() {
 
@@ -46,7 +50,7 @@ export class CarsListComponent implements OnInit {
   }
 
   confirmChange(data:{licensePlate:string, status:boolean}){
-    this.carsService.changeStatus(data.licensePlate,this.createStatusFromData(data.status)).subscribe({
+    this.carsService.changeStatus(data.licensePlate,this.createStatusFormData(data.status)).subscribe({
       next:(res)=>{
         const car = this.cars.find( c => c.licensePlate == data.licensePlate)
 
@@ -69,7 +73,7 @@ export class CarsListComponent implements OnInit {
     )
   }
 
-  createStatusFromData(status:boolean){
+  createStatusFormData(status:boolean){
 
     const formData = new FormData()
 

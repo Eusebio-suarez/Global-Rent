@@ -229,5 +229,5 @@ button.toast-close-button {
 }
 
 .active{
-    @apply bg-green-400/70
+    @apply bg-green-500/70
 }

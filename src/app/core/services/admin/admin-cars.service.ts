@@ -16,6 +16,10 @@ export class AdminCarsService {
     return this.http.get<ApiResponse<AdminCarDTO[]>>(this.API_BASE_URL)
   }
 
+  create(data:FormData){
+    return this.http.post<ApiResponse<AdminCarDTO>>(this.API_BASE_URL,data)
+  }
+
   update(licensePlate:string,formData:FormData){
 
     return this.http.patch<ApiResponse<AdminCarDTO>>(this.API_BASE_URL+`/${licensePlate}`,formData)
