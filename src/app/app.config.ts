@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
       JwtModule.forRoot({
         config:{
           headerName:"Authorization",
-          allowedDomains:["gobal-rent.vercel.app"],
+          allowedDomains:["global-rent-back.onrender.com"],
           tokenGetter:(()=> localStorage.getItem("Authorization")),
           disallowedRoutes:["/api/v1/auth/login","/api/v1/auth/register"]
         }
