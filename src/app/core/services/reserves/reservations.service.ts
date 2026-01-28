@@ -11,7 +11,7 @@ import { ReserveDetails} from '../../models/request/reserveRequest';
 })
 export class ReservationsService {
 
-  API_BASE_URL = "http://localhost:8080/api/v1"
+  API_BASE_URL = "https://global-rent-back.onrender.com/api/v1"
 
   http:HttpClient = inject(HttpClient)
 

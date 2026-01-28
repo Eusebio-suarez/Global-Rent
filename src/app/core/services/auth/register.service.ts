@@ -9,7 +9,7 @@ import { RegisterRequest } from '../../models/request/registerRequest';
 })
 export class RegisterService {
 
-  readonly API_BASE_URL ="http://localhost:8080/api/v1"
+  readonly API_BASE_URL ="https://global-rent-back.onrender.com/api/v1"
 
   http:HttpClient = inject(HttpClient)
 

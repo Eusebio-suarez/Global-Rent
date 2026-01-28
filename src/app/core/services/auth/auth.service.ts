@@ -8,7 +8,7 @@ import { LoginRequest } from '../../models/request/loginRequest';
 })
 export class AuthService {
 
-  readonly API_BASE_URL="http://localhost:8080/api/v1/auth"
+  readonly API_BASE_URL="https://global-rent-back.onrender.com/api/v1/auth"
 
   private http = inject(HttpClient)
 

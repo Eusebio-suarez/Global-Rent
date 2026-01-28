@@ -11,7 +11,7 @@ export class AdminReservesService {
 
   readonly http = inject(HttpClient)
 
-  readonly API_BASE_URL="http://localhost:8080/api/v1/admin/"
+  readonly API_BASE_URL="https://global-rent-back.onrender.com/api/v1/admin/"
 
   getAllReserves():Observable<ApiResponse<AdminReserveResponse[]>>{
     return this.http.get<ApiResponse<AdminReserveResponse[]>>(this.API_BASE_URL+"reservations").pipe(

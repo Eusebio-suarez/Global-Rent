@@ -10,7 +10,7 @@ export class AdminCarsService {
 
   readonly http = inject(HttpClient)
 
-  readonly API_BASE_URL = "http://localhost:8080/api/v1/admin/cars"
+  readonly API_BASE_URL = "https://global-rent-back.onrender.com/api/v1/admin/cars"
 
   getAllCars(){
     return this.http.get<ApiResponse<AdminCarDTO[]>>(this.API_BASE_URL)
