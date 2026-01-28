@@ -20,6 +20,8 @@ export class ReserveComponent {
 
   toastr:ToastrService = inject(ToastrService)
 
+  isLoading = false
+
   activatedRouter:ActivatedRoute = inject(ActivatedRoute)
 
   reserveDetailsService:ReserveDetailsService = inject(ReserveDetailsService)
@@ -44,10 +46,12 @@ export class ReserveComponent {
   }
 
   getCar(){
+    this.isLoading = true
+
     const model = this.activatedRouter.snapshot.params["model"]
 
     this.carsService.getCar(model).subscribe(car =>{
-
+      
       this.selectedCar = car
 
       this.calculateTotal()
@@ -58,8 +62,9 @@ export class ReserveComponent {
       licensePlate: this.selectedCar?.licensePlate ?? ""
       }));
 
-    })
+      this.isLoading = false
 
+    })
 
   }
 
